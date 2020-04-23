@@ -71,7 +71,7 @@
                                     },
                                     "enc": {
                                         "description": "Algorithm to encrypt the JWT.",
-                                        "default": "A256CBC-HS512",
+                                        "default": "A256GCM",
                                         "enum": [
                                             "A128CBC-HS256",
                                             "A192CBC-HS384",
