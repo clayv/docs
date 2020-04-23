@@ -1,12 +1,12 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "Encryption",
+        "title": "JSON Object Signing and Encryption for Cisco Anonymous Services",
         "version": "1.0"
     },
     "servers": [
         {
-            "url": "http://localhost:8080/mtg-broker-server/api/v1"
+            "url": "https://mtg-broker.a6.ciscospark.com/api/v1"
         }
     ],
     "paths": {
@@ -71,7 +71,7 @@
                                     },
                                     "enc": {
                                         "description": "Algorithm to encrypt the JWT.",
-                                        "default": "A256GCM",
+                                        "default": "A256CBC-HS512",
                                         "enum": [
                                             "A128CBC-HS256",
                                             "A192CBC-HS384",
