@@ -11,7 +11,7 @@
     ],
     "paths": {
         "/joseencrypt": {
-            "get": {
+            "post": {
                 "requestBody": {
                     "description": "",
                     "content": {
