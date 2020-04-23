@@ -139,8 +139,7 @@
                     },
                     "required": true
                 },
-                "tags": [
-                ],
+                "tags": [],
                 "responses": {
                     "200": {
                         "content": {
@@ -179,7 +178,7 @@
                         "description": "OK"
                     }
                 },
-                "operationId": "get-joseencrypt",
+                "operationId": "post-joseencrypt",
                 "summary": "Encryption requests",
                 "description": "This endpoint accepts JOSE encryption requests and returns the encrypted string."
             }
@@ -193,5 +192,10 @@
                 "description": "Use an access token or Bot secret"
             }
         }
-    }
+    },
+    "security": [
+        {
+            "Bearer": []
+        }
+    ]
 }
