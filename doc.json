@@ -1,0 +1,197 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Encryption",
+        "version": "1.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8080/mtg-broker-server/api/v1"
+        }
+    ],
+    "paths": {
+        "/joseencrypt": {
+            "get": {
+                "requestBody": {
+                    "description": "",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "aud",
+                                    "jwt"
+                                ],
+                                "type": "object",
+                                "properties": {
+                                    "aud": {
+                                        "description": "This value will be provided to you by Cisco.",
+                                        "type": "string"
+                                    },
+                                    "jwt": {
+                                        "required": [
+                                            "sub"
+                                        ],
+                                        "type": "object",
+                                        "properties": {
+                                            "sub": {
+                                                "description": "A unique value in your organization which will be used to place hosts and guests into the same collaboration space.",
+                                                "type": "string"
+                                            },
+                                            "nbf": {
+                                                "description": "The \"nbf\" (not before) claim identifies the time given as the number of seconds from the Unix Epoch (1970-01-01T00:00:00Z UTC) before which the JWT will not be accepted for processing.",
+                                                "type": "integer"
+                                            },
+                                            "exp": {
+                                                "description": "The \"exp\" (expiration time) claim identifies the expiration time given as the number of seconds from the Unix Epoch (1970-01-01T00:00:00Z UTC) on or after which the JWT will not be accepted for processing. If not specified will be set for 15 minutes from the time request is made.",
+                                                "type": "integer"
+                                            }
+                                        }
+                                    },
+                                    "numHost": {
+                                        "description": "Number of encrypted strings to be used by hosts.",
+                                        "default": 1,
+                                        "minimum": 0,
+                                        "type": "integer"
+                                    },
+                                    "numGuest": {
+                                        "description": "Number of encrypted strings to be used by guests.",
+                                        "default": 1,
+                                        "minimum": 0,
+                                        "type": "integer"
+                                    },
+                                    "jweAlg": {
+                                        "description": "Algorithm to encrypt the Content Encryption Key, which produces the JWE Encrypted Key.",
+                                        "default": "PBES2-HS512+A256KW",
+                                        "enum": [
+                                            "PBES2-HS256+A128KW",
+                                            "PBES2-HS384+A192KW",
+                                            "PBES2-HS512+A256KW"
+                                        ],
+                                        "type": "string"
+                                    },
+                                    "enc": {
+                                        "description": "Algorithm to encrypt the JWT.",
+                                        "default": "A256CBC-HS512",
+                                        "enum": [
+                                            "A128CBC-HS256",
+                                            "A192CBC-HS384",
+                                            "A256CBC-HS512",
+                                            "A128GCM",
+                                            "A192GCM",
+                                            "A256GCM"
+                                        ],
+                                        "type": "string"
+                                    },
+                                    "jwsAlg": {
+                                        "description": "Algorithm to sign the JWT.",
+                                        "default": "HS512",
+                                        "enum": [
+                                            "HS256",
+                                            "HS384",
+                                            "HS512"
+                                        ],
+                                        "type": "string"
+                                    },
+                                    "saltLength": {
+                                        "description": "Length of the salt to be used in conjunction with the jweAlg.",
+                                        "default": "A random value between 8 and 128 inclusive",
+                                        "maximum": 128,
+                                        "minimum": 8,
+                                        "type": "integer"
+                                    },
+                                    "iterations": {
+                                        "description": "Number of  iterations to be used in conjunction with the jweAlg.",
+                                        "default": "A random value between 1000 and 32767 inclusive",
+                                        "maximum": 10000000,
+                                        "minimum": 1000,
+                                        "type": "integer"
+                                    }
+                                }
+                            },
+                            "examples": {
+                                "Simple Example": {
+                                    "value": {
+                                        "aud": "< This value will be provided to you by Cisco >",
+                                        "jwt": {
+                                            "sub": "< Unique value within your organization >"
+                                        }
+                                    }
+                                },
+                                "Complex Example": {
+                                    "value": {
+                                        "aud": "< This value will be provided to you by Cisco >",
+                                        "numHost": 1,
+                                        "numGuest": 1,
+                                        "jweAlg": "PBES2-HS512+A256KW",
+                                        "enc": "A256CBC-HS512",
+                                        "jwsAlg": "HS512",
+                                        "saltLength": 8,
+                                        "iterations": 1000,
+                                        "jwt": {
+                                            "sub": "< Unique value within your organization >",
+                                            "nbf": 0,
+                                            "exp": 0
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "tags": [
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "host": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "guest": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Sample Reponse for 1 Host and 1 Guest": {
+                                        "value": {
+                                            "host": [
+                                                "eyJwMnMiOiJ5QzNGdFFpSWdHdlduY21EbjIyOWhtRXdrYjBDQWFfczdtNjFmWW9KaTlfVkJHUWFrWTR0bkV2S19QOW5YMElKWlZYd3JFV1BJMzR5VVBtVkRVMXpHRnpROXFDLXFfYjVMNkdOZ3JwMmwybFNHUFc4QUdDb3lPNzczU0FvWVc5YlBmZHR4MzR2NjNQODRwRVg1enF5bWVwSUEwYyIsInAyYyI6MjMyNjcsImF1ZCI6ImRlODA1NjY0LTE2ZDktNDcyNC05ZmYzLWMyYzE3M2YxYjM4YSIsImlzcyI6IjhhODI4MmZlLWMxMzUtNGY5Zi05MzcyLTdjNjQ2MDFjMGQ3ZCIsImN0eSI6IkpXVCIsImVuYyI6IkEyNTZDQkMtSFM1MTIiLCJhbGciOiJQQkVTMi1IUzUxMitBMjU2S1cifQ._Ms5xBVGn_5P0yPPHO8GHuq0CLsme-c0rxaBhPdmqzSqbPQHb4GoGQEnCly7WYI1bMsvC92341WljjuNB5GgQl9LG7KGli45.a-1twCUVDWhtBLSP6lhY3A.mZR3NVnzCigEUBXwok8E5m3MMJUe0wrolZQGK_B8cCGGjfeHhC-_7nnsdNm-GqJro7awZ-8FBl0YV8u31lth4ypuZ3TU88Q_FZxLsPyZbncfx_muSffr7yayiBBVFJ31g-dt5f7TJ1VAoaZBOMGdJCKNjRUogrQqdbCGXjudyu8lJwa8osXa18GITcCzKpQNZR_JJ5oypcGy3DjhL-XYGZkKYMpQDKpC4hWxjKU397lF9G_x5pxp5UZ5aZsgQIvyf9klPpZeJSabZkzodsAHe6MmJWvbjK1_JEFoVrbCwrqZgQ3ppOGYguvMdwYeWlOQv5aowPJ4NeV2rcJz3N-BDDG4E2w2fFeEhw6tmQyyayGk2KtlJ0bQBgE0WsZtxrA8HXdn-A1EpHMpcVvQD047iEPLT-_vsCHHLC-dAkIkw2sOdT3XiXN34gGCrMtNkxZvz1rrey0bDAblgwWjEv0z5A.oakylnAoVHgVNv_3XrLGEXlOfHj5eqVJXRmcIJ4c8qs"
+                                            ],
+                                            "guest": [
+                                                "eyJwMnMiOiJucHVBTjU3TXI1NkIzMTRtaVZnaEtvbkRJQU1WdkVhcnJSS19KUkh1NEV3QVlxUDFMSlhmUVBjIiwicDJjIjoxMzAyNCwiYXVkIjoiZGU4MDU2NjQtMTZkOS00NzI0LTlmZjMtYzJjMTczZjFiMzhhIiwiaXNzIjoiOGE4MjgyZmUtYzEzNS00ZjlmLTkzNzItN2M2NDYwMWMwZDdkIiwiY3R5IjoiSldUIiwiZW5jIjoiQTI1NkNCQy1IUzUxMiIsImFsZyI6IlBCRVMyLUhTNTEyK0EyNTZLVyJ9.vRyRjKejSXdfsAQqKlUf3WbI6a3iZHRt01pUIKYIQF5WWHADxk0oy5WwZ4t91QBSsOCZWxVlcEJyHYaPkCBXe0fJvixvozRa.Qb_xfAxHGLZVyDZVRtxF4g.lH_PDtK5j1YUMsWySVy289Iq27ddWF42P2oyEqFkybtGyTUF3vI_kspUz1lLp7jejR_xBXE1jjqOY04030OWHKeaLJB6UJ9_X5f7s_g2ZPs6dgGdyRR2iYjcb8xOMn9Dm8TI73-eJHkTi3n_xf8O3ZRsNpn1pugnlXYTzwFW0KuSqPe1FrQ3WPr_ozpspIrGNfFltrlrHIQWxRWmC-liUsgPhIXgsqPWkmEyS1Wnr6m3o4tkbJ7fWCxioG-h0uEVEQokPH1KEiQ-0n5fYIhfYTSI7fMJX9Ek8Vz-aGMIuP20FuPfYCU2yLlq9leRMLIrn_tHcIiAmWBOdExAhbamueFwhARc7-lgh8pOQ8DvkP9Hy1JURFY9qIkoQQaG9IvT4HyCAEeUACt_m0rteWobKLIKa8uz4PZSlrKbBRfqFHFKB8E6_77lkqBlgIi81bJDN4qQASXKNpykefLX58I22xLbvCCpWS9akGpLqUtZJzA.cNRqd3sbtRpexi0tnpC1eVDELGefpGz_QDCNBBPXNA0"
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "OK"
+                    }
+                },
+                "operationId": "get-joseencrypt",
+                "summary": "Encryption requests",
+                "description": "This endpoint accepts JOSE encryption requests and returns the encrypted string."
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "Bearer": {
+                "scheme": "bearer",
+                "type": "http",
+                "description": "Use an access token or Bot secret"
+            }
+        }
+    }
+}
