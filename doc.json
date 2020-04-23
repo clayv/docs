@@ -42,7 +42,7 @@
                                                 "type": "integer"
                                             },
                                             "exp": {
-                                                "description": "The \"exp\" (expiration time) claim identifies the expiration time given as the number of seconds from the Unix Epoch (1970-01-01T00:00:00Z UTC) on or after which the JWT will not be accepted for processing. If not specified will be set for 15 minutes from the time request is made.",
+                                                "description": "The \"exp\" (expiration time) claim identifies the expiration time given as the number of seconds from the Unix Epoch (1970-01-01T00:00:00Z UTC) on or after which the JWT will not be accepted for processing. If not specified will be set for 15 minutes later than the time when the request was made.",
                                                 "type": "integer"
                                             }
                                         }
