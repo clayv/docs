@@ -69,6 +69,20 @@
                                         ],
                                         "type": "string"
                                     },
+                                    "saltLength": {
+                                        "description": "Length of the salt to be used in conjunction with the jweAlg.",
+                                        "default": "A random value between 8 and 128 inclusive",
+                                        "maximum": 128,
+                                        "minimum": 8,
+                                        "type": "integer"
+                                    },
+                                    "iterations": {
+                                        "description": "Number of  iterations to be used in conjunction with the jweAlg.",
+                                        "default": "A random value between 1000 and 32767 inclusive",
+                                        "maximum": 32767,
+                                        "minimum": 1000,
+                                        "type": "integer"
+                                    },
                                     "enc": {
                                         "description": "Algorithm to encrypt the JWT.",
                                         "default": "A256GCM",
@@ -91,20 +105,6 @@
                                             "HS512"
                                         ],
                                         "type": "string"
-                                    },
-                                    "saltLength": {
-                                        "description": "Length of the salt to be used in conjunction with the jweAlg.",
-                                        "default": "A random value between 8 and 128 inclusive",
-                                        "maximum": 128,
-                                        "minimum": 8,
-                                        "type": "integer"
-                                    },
-                                    "iterations": {
-                                        "description": "Number of  iterations to be used in conjunction with the jweAlg.",
-                                        "default": "A random value between 1000 and 32767 inclusive",
-                                        "maximum": 10000000,
-                                        "minimum": 1000,
-                                        "type": "integer"
                                     }
                                 }
                             },
