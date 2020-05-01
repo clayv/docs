@@ -48,13 +48,13 @@
                                         }
                                     },
                                     "numHost": {
-                                        "description": "Number of encrypted strings to be used by hosts.",
+                                        "description": "Number of encrypted strings to be used by hosts. NOTE: The maximum number of links, combining both host and guest, that can be requested at one time is 50.",
                                         "default": 1,
                                         "minimum": 0,
                                         "type": "integer"
                                     },
                                     "numGuest": {
-                                        "description": "Number of encrypted strings to be used by guests.",
+                                        "description": "Number of encrypted strings to be used by guests. NOTE: The maximum number of links, combining both host and guest, that can be requested at one time is 50.",
                                         "default": 1,
                                         "minimum": 0,
                                         "type": "integer"
