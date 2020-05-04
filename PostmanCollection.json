@@ -1,0 +1,132 @@
+{
+	"info": {
+		"_postman_id": "e2729224-4068-477d-b790-3e6af3204493",
+		"name": "Cisco JSON Signing and Encryption",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Encryption",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://mtg-broker-a.wbx2.com/api/v1/joseencrypt",
+					"protocol": "https",
+					"host": [
+						"mtg-broker-a",
+						"wbx2",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"joseencrypt"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Complex Request",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://mtg-broker-a.wbx2.com/api/v1/joseencrypt",
+							"protocol": "https",
+							"host": [
+								"mtg-broker-a",
+								"wbx2",
+								"com"
+							],
+							"path": [
+								"api",
+								"v1",
+								"joseencrypt"
+							]
+						}
+					},
+					"_postman_previewlanguage": "json",
+					"header": null,
+					"cookie": [],
+					"body": "{\n    \"aud\": \"< This value will be provided to you by Cisco >\",\n    \"numHost\": 1,\n    \"numGuest\": 1,\n    \"jweAlg\": \"PBES2-HS512+A256KW\",\n    \"enc\": \"A256CBC-HS512\",\n    \"jwsAlg\": \"HS512\",\n    \"saltLength\": 8,\n    \"iterations\": 1000,\n    \"jwt\": {\n        \"sub\": \"< Unique value within your organization >\",\n        \"nbf\": 0,\n        \"exp\": 0\n    }\n}"
+				},
+				{
+					"name": "Simple Request",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://mtg-broker-a.wbx2.com/api/v1/joseencrypt",
+							"protocol": "https",
+							"host": [
+								"mtg-broker-a",
+								"wbx2",
+								"com"
+							],
+							"path": [
+								"api",
+								"v1",
+								"joseencrypt"
+							]
+						}
+					},
+					"_postman_previewlanguage": "json",
+					"header": null,
+					"cookie": [],
+					"body": "{\n    \"aud\": \"< This value will be provided to you by Cisco >\",\n    \"jwt\": {\n        \"sub\": \"< Unique value within your organization >\"\n    }\n}"
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "",
+				"type": "string"
+			}
+		]
+	},
+	"protocolProfileBehavior": {}
+}
